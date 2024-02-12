@@ -27,6 +27,13 @@
       Hidden Markov Models for Voice Recognition
     </h1>
     <h2>Introduction</h2>
+    <p>
+      Hidden Markov Models (HMMs) play a crucial role in voice recognition due
+      to their ability to model sequential and temporal patterns inherent in
+      speech signals. In voice recognition applications, HMMs capture the
+      dynamic nature of speech by considering it as a sequence of phonetic or
+      acoustic states.
+    </p>
     <h2>Markov Chains</h2>
     <p>
       &emsp;Prior to understanding Hidden Markov Models, it is first necessary
@@ -133,7 +140,39 @@
       will provide the most likely output of words that were spoken, or states.
       This can be seen in Image 2.
     </p>
+    <figure>
+      <center>
+        <img
+          src="../assets/images/Decoder_for_Voice_Recognition.PNG"
+          alt="Decoder for Voice Recognition"
+          style="width: 50%"
+        />
+      </center>
+      <figcaption>Image 2: Decoder for Voice Recognition</figcaption>
+    </figure>
+    <p>
+      &emsp;To accomplish finding these hidden states the Viterbi Algorithm is
+      often applied. The Viterbi Algorithm is a type of dynamic programming that
+      will output the most likely hidden state sequence based on the
+      observations. The observations are viewed from left to right and
+      probabilities are applied to determine the state based on the current
+      observation. This is done recursively until the most likely path is found
+      and output.
+    </p>
     <h2>Conclusions and Next Steps</h2>
+    <p>
+      &emsp;Through this exercise we have defined a Markov Chain, shown how
+      these chains can be applied to create an HMM, and expresses how an HMM is
+      applied in speech recognition. As seen in the above sections, this is the
+      most common methodology for voice recognition, a technology the majority
+      of individuals use on a daily basis.
+    </p>
+    <p>
+      &emsp;As a next step it is recommended the reader look further into the
+      exact algorithms applied to solve for the words being spoken. The Viterbi
+      Algorithm is only one example. Additionally, many other applications of
+      HMMs exist in the real-world that may be of interest to the reader.
+    </p>
     <h2>Bibliography</h2>
     <a href="https://web.stanford.edu/~jurafsky/slp3/A.pdf"
       >Hidden Markov Models</a
