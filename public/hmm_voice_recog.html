@@ -3,11 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <script>
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+      });
+    </script>
     <title>Hidden Markov Models for Voice Recognition</title>
   </head>
   <body>
-    <h1 style="text-align:center;">Hidden Markov Models for Voice Recognition</h1>
+    <h1 style="text-align: center">
+      Hidden Markov Models for Voice Recognition
+    </h1>
     <h2>Introduction</h2>
     <h2>Markov Chains</h2>
     <p>
@@ -21,8 +39,100 @@
       described as predicting tomorrow’s temperature based only on the
       temperature that it is today.
     </p>
+    <figure>
+      <center>
+        <img
+          src="../assets/images/Markov_Chain_for_Outside_Temps.PNG"
+          alt="Markov Chain for Outside Temperature"
+          style="width: 50%"
+        />
+      </center>
+      <figcaption>Image 1: Markov Chain for Outside Temperature</figcaption>
+    </figure>
+    <p>
+      &emsp;The idea that only the current state matter can be more formally
+      stated as the Markov Assumption and defined as follows for a sequence of
+      states <var>q<sub>1</sub></var
+      >, <var>q<sub>2</sub></var
+      >, <var>...</var>, <var>q<sub>i</sub></var
+      >:
+    </p>
+    $$P(q_1 ... q_{i-1})=P(q_i=\frac{a}{q_{i-1}}).$$
+    <p>
+      &emsp;Based on the example of outside temperature provided in Image 1, we
+      can define the necessary components of a Markov Chain. First, we have a
+      set of N states, <var>Q</var> = <var>q<sub>1</sub></var>
+      <var>q<sub>2</sub></var> ... <var>q<sub>N</sub></var
+      >; in this example these states are the temperatures warm, hot, and cold.
+      Second, we have the probability of transitioning from one state to any
+      other state (including the original state), <var>A</var> =
+      <var>q<sub>11</sub></var> <var>q<sub>12</sub></var> ...
+      <var>q<sub>N1</sub></var> ... <var>q<sub>NN</sub></var
+      >. Also referred to as a transition probability matrix, these
+      probabilities can be put into a matrix for mathematical calculations. In
+      Image 1 they represented by the numbers on the lines between states.
+      Finally, it is necessary to have an initial probability distribution,
+      <var>&Pi;</var> = <var>&Pi;<sub>1</sub></var>
+      <var>&Pi;<sub>2</sub></var> ... <var>&Pi;<sub>N</sub></var
+      >, which is not represented in Image 1. These probabilities represent the
+      likelihood the Markov Chain will start in each state, as opposed to
+      transition to that state from another state.
+    </p>
     <h2>Hidden Markov Models (HMM)</h2>
+    <p>
+      &emsp;Now that a Markov Chain is understood, it is possible to move into
+      the concept of a Hidden Markov Model (HMM). An HMM is applied when the
+      states we are interested in predicting are hidden, meaning we cannot
+      observe them directly. A classic example of this is determining the
+      weather outside based solely on whether another person has an umbrella. In
+      this example we are not able to see the weather outside for some reason,
+      so this is the hidden variable, but we are able to observe whether an
+      umbrella is present, so this is the observed variable. An HMM has the same
+      components as a Markov Chain, with the addition of the emission
+      probabilities (also call observation likelihoods). Defined as
+      <var>B</var> = <var>b<sub>i</sub></var
+      >(<var>o<sub>t</sub></var
+      >), these are the sequence of probabilities that each observation,
+      <var>o<sub>t</sub></var
+      >, resulted from a given state, <var>q<sub>i</sub></var
+      >.
+    </p>
+    <p>
+      &emsp;To calculate the likelihood of a given state, the HMM is provided
+      with the set of <var>T</var> observations, <var>O</var> =
+      <var>o<sub>1</sub></var> <var>o<sub>2</sub></var> ...
+      <var>o<sub>T</sub></var
+      >. Each of these observations must come from a defined vocabulary,
+      <var>V</var> = <var>v<sub>1</sub></var> <var>v<sub>2</sub></var> ...
+      <var>v<sub>V</sub></var
+      >, which is the list of all potential observations. Then, two assumptions
+      are made. The first is the Markov Assumption defined above and the second
+      is known as Output Independence. Formally stated as \[ P = (q_1, q_i, ...,
+      q_T, o_1, ..., o_i, ..., o_T) = P\left(\frac{o_i}{q_i}\right) \], Output
+      Independence is the assumption that each output is based solely on the
+      associated state, no other states or observations played a role in that
+      observation. So, in the weather example, the observation of an umbrella is
+      only based on the weather today. It is not based on the weather nor the
+      observation of an umbrella on any prior day.
+    </p>
+    <p>
+      &emsp;From the observation sequence provided an HMM can be applied to
+      solve one of three questions. First is Likelihood, which asks what the
+      likelihood of that observation sequence occurring. Second is Decoding,
+      which asks what the most likely hidden state sequence is for those
+      observations. Third is Learning, which trains the HMM based on the
+      provided observations and set of states.
+    </p>
     <h2>Voice Recognition</h2>
+    <p>
+      &emsp;The ability to recognize speech is a real-world example of the
+      second HMM question, Decoding. In this example the input to the model is
+      the sounds made during speech; these are the individual noises that make
+      up words, not the specific words themselves. There are ~40 of these noises
+      in the English language. Based on these sounds, or observations, the HMM
+      will provide the most likely output of words that were spoken, or states.
+      This can be seen in Image 2.
+    </p>
     <h2>Conclusions and Next Steps</h2>
     <h2>Bibliography</h2>
     <a href="https://web.stanford.edu/~jurafsky/slp3/A.pdf"
