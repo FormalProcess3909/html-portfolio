@@ -1,3 +1,13 @@
-h2 {
+h1 {
+    font-family: serif;
     color: blue;
+}
+
+h2 {
+    font-family: serif;
+    color: blue;
+}
+
+p {
+    font-family: serif;
 }
